@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { MainContext, PageEnum } from "./Context";
 
 const Content = () => {
+  const { url, setPage } = useContext(MainContext);
   return (
     <>
-      <div className="text-gray-400">https://youtube.com/watch?v=1234</div>
+      <div className="text-gray-400">{url}</div>
 
       <div className="mt-4 bg-white shadow-xl w-2/5 rounded-lg px-4 py-4">
         <div className="flex gap-x-3 items-center">
@@ -18,7 +21,10 @@ const Content = () => {
         </div>
       </div>
       <div className="mt-6 flex w-2/5 justify-between">
-        <div className="bg-white shadow-xl rounded-full py-2 px-4 text-gray-700 cursor-pointer">
+        <div
+          className="bg-white shadow-xl rounded-full py-2 px-4 text-gray-700 cursor-pointer"
+          onClick={() => setPage!(PageEnum.Home)}
+        >
           <HiChevronLeft size={22} />
         </div>
         <div className="bg-white shadow-xl rounded-full py-2 pl-4 pr-2 text-gray-700 flex cursor-pointer">

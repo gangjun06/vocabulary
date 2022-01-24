@@ -1,16 +1,16 @@
-import { FormEventHandler, useCallback, useState } from "react";
+import { useContext, useState } from "react";
 import { HiChevronRight } from "react-icons/hi";
+import { getTexts } from "utils/loadText";
+import { MainContext, PageEnum } from "./Context";
 
-export default function UrlInput({
-  onSubmit,
-}: {
-  onSubmit: (str: string) => void;
-}) {
+const UrlInput = () => {
   const [value, setValue] = useState<string>("");
+  const { setPage } = useContext(MainContext);
 
-  const formSubmit = (e: any) => {
+  const formSubmit = async (e: any) => {
     e.preventDefault();
-    onSubmit(value);
+    await getTexts(value);
+    setPage!(PageEnum.Content);
   };
 
   return (
@@ -29,4 +29,6 @@ export default function UrlInput({
       </button>
     </form>
   );
-}
+};
+
+export default UrlInput;

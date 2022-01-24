@@ -1,7 +1,14 @@
 export type YTCaption = {
-  start: number;
-  dur: number;
+  start: string;
+  dur: string;
   text: string;
 };
 
-export type ParsedCaption = {};
+export type ParsedCaption = {
+  start: string;
+  end: string;
+  words: {
+    str: string;
+    konw: boolean;
+  }[];
+};
