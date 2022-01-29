@@ -5,12 +5,16 @@ import { MainContext, PageEnum } from "./Context";
 
 const UrlInput = () => {
   const [value, setValue] = useState<string>("");
-  const { setPage } = useContext(MainContext);
+  const { setPage, setCaption } = useContext(MainContext);
 
   const formSubmit = async (e: any) => {
     e.preventDefault();
-    await getTexts(value);
-    setPage!(PageEnum.Content);
+    try {
+      const list = await getTexts(value);
+      console.log(list);
+      setCaption!(list || []);
+      setPage!(PageEnum.Content);
+    } catch (e) {}
   };
 
   return (
