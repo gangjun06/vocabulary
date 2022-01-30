@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { MainContext, PageEnum } from "./Context";
 

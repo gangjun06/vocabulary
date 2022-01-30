@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { HiChevronRight } from "react-icons/hi";
 import { getTexts } from "utils/loadText";
 import { MainContext, PageEnum } from "./Context";
+import { toast } from "react-toastify";
 
 const UrlInput = () => {
   const [value, setValue] = useState<string>("");
@@ -10,11 +11,31 @@ const UrlInput = () => {
   const formSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const list = await getTexts(value);
-      console.log(list);
+      const text = value.trim();
+      if (!text.length) {
+        toast("텍스트를 입력하여 주세요", { type: "warning" });
+        return;
+      }
+      if (
+        !/^https:\/\/((www.|)youtube.com\/watch\?v=.+|youtu.be\/.+)$/.test(text)
+      ) {
+        toast("올바르지 않은 유튜브 링크입니다.", { type: "warning" });
+        return;
+      }
+      const parsed = new URL(text);
+      const videoID =
+        parsed.pathname === "/watch"
+          ? parsed.searchParams.get("v") || ""
+          : parsed.pathname.substring(1);
+      const list = await getTexts(videoID);
       setCaption!(list || []);
       setPage!(PageEnum.Content);
-    } catch (e) {}
+    } catch (e) {
+      toast(
+        "처리중 문제가 발생하였습니다.\n자세한 내용은 콘솔 로그를 참고하여 주세요.",
+        { type: "warning" }
+      );
+    }
   };
 
   return (

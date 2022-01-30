@@ -26,7 +26,7 @@ export const MainContextWrapper = ({
   children: ReactElement;
 }) => {
   const [url, setUrl] = useState<string>("");
-  const [page, setPage] = useState<PageEnum>(PageEnum.Content);
+  const [page, setPage] = useState<PageEnum>(PageEnum.Home);
   const [caption, setCaption] = useState<ParsedCaption[]>();
   const [vocaList, setVocaList] = useState<string[]>([]);
 

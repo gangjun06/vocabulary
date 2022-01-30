@@ -6,7 +6,7 @@ type Data = {
 
 const Translate = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method !== "POST") {
-    res.status(200).json({ text: "불러오기 실패" });
+    res.status(405).json({ text: "불러오기 실패" });
     return;
   }
 
@@ -21,14 +21,9 @@ const Translate = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       body: `source=en&target=ko&text=${req.body}`,
     });
     const json = await resData.json();
-    res
-      .status(200)
-      .json({
-        text: (json.message.result.translatedText as string).replaceAll(
-          ".",
-          ""
-        ),
-      });
+    res.status(200).json({
+      text: (json.message.result.translatedText as string).replaceAll(".", ""),
+    });
   } catch (e) {
     res.status(500).json({ text: "불러오기 실패" });
   }

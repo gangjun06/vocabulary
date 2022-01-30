@@ -9,9 +9,10 @@ const Export = () => {
   function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
   }
-  let [categories] = useState<string[]>(["csv(탭)", "csv(콤마)", "json"]);
+  let [categories] = useState<string[]>(["csv(탭)", "csv(콤마)"]);
   const [selected, setSelected] = useState<string>(categories[0]);
   const [text, setText] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const translateEnglish = async (str: string) => {
     try {
@@ -26,7 +27,18 @@ const Export = () => {
     }
   };
 
+  const download = async () => {
+    const element = document.createElement("a");
+    const file = new Blob([text], { type: "text/plain" });
+    element.href = URL.createObjectURL(file);
+    element.download = "vocabulary.csv";
+    document.body.appendChild(element);
+    element.click();
+    element.remove();
+  };
+
   useEffect(() => {
+    setLoading(true);
     (async () => {
       let means: { [key: string]: string } = {};
       try {
@@ -60,6 +72,7 @@ const Export = () => {
         );
         setText(list.join("\n"));
       }
+      setLoading(false);
     })();
   }, [selected, vocaList, page]);
 
@@ -81,8 +94,22 @@ const Export = () => {
           </div>
         ))}
       </div>
-      <div className="mt-4 w-2/5 bg-white shadow-xl rounded-lg px-4 py-4 gap-y-1 flex flex-col overflow-y-scroll">
-        <textarea value={text} />
+      <div className="mt-4 w-2/5 bg-white shadow-xl rounded-lg px-4 py-4 gap-y-1 flex flex-col overflow-y-scroll text-center">
+        {loading ? (
+          <div className="py-16 flex flex-col gap-y-0.5">
+            <span>단어 목록을 불러오는 중입니다...</span>
+            <span className="text-gray-600">
+              단어 개수에 따라 시간이 걸릴 수 있습니다
+            </span>
+          </div>
+        ) : (
+          <textarea
+            className="p-2"
+            rows={10}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+        )}
       </div>
       <div className="mt-6 flex w-2/5 justify-between">
         <div
@@ -91,6 +118,14 @@ const Export = () => {
         >
           <HiChevronLeft size={22} />
         </div>
+        {!loading && (
+          <div
+            className="bg-white shadow-xl rounded-full py-2 pl-4 pr-4 text-gray-700 flex cursor-pointer"
+            onClick={download}
+          >
+            다운로드
+          </div>
+        )}
         <div
           className="bg-white shadow-xl rounded-full py-2 pl-4 pr-4 text-gray-700 flex cursor-pointer"
           onClick={() => {
