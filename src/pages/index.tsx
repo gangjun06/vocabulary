@@ -41,10 +41,10 @@ const Home: NextPage = () => {
     <MainLayout>
       <form
         onSubmit={formSubmit}
-        className="rounded-full bg-white shadow-xl flex items-center"
+        className="rounded-full bg-white shadow-xl flex items-center w-full sm:w-3/4 md:w-3/5 lg:w-2/5 xl:w-2/6"
       >
         <input
-          className="pl-5 pr-2 py-2 rounded-l-full"
+          className="pl-5 pr-2 py-2 rounded-l-full w-full"
           placeholder="https://youtube.com/watch?v=......"
           value={value}
           onChange={(e) => setValue(e.target.value)}

@@ -11,10 +11,10 @@ const Content = () => {
     <>
       <div className="text-gray-400">{url}</div>
 
-      <div className="mt-4 bg-white shadow-xl w-2/5 rounded-lg px-4 py-4 gap-y-1 flex flex-col overflow-y-scroll">
+      <div className="mt-4 bg-white shadow-xl text-left rounded-lg px-4 py-4 gap-y-1 flex flex-col overflow-y-scroll">
         {caption?.map((item, index) => (
           <div className="flex gap-x-3 items-center" key={index}>
-            <div className="text-gray-500 text-center flex flex-row text-sm gap-x-1">
+            <div className="text-gray-500 text-center flex flex-col sm:flex-row text-sm gap-x-1">
               <div>{item.start}</div>
               <div>{item.end}</div>
             </div>
@@ -51,18 +51,23 @@ const Content = () => {
           </div>
         ))}
       </div>
-      <div className="mt-6 flex w-2/5 justify-between">
-        <Link href="/" passHref>
-          <div className="bg-white shadow-xl rounded-full py-2 px-4 text-gray-700 cursor-pointer">
-            <HiChevronLeft size={22} />
+      <div>
+        <div className="invisible h-0">
+          Dummy Text For Make Layout. I know, Its stupid method...
+        </div>
+        <div className="mt-6 flex justify-between" style={{ width: "inherit" }}>
+          <Link href="/" passHref>
+            <div className="bg-white shadow-xl rounded-full py-2 px-4 text-gray-700 cursor-pointer">
+              <HiChevronLeft size={22} />
+            </div>
+          </Link>
+          <div
+            className="bg-white shadow-xl rounded-full py-2 pl-4 pr-2 text-gray-700 flex cursor-pointer"
+            onClick={() => setPage!(PageEnum.Export)}
+          >
+            내보내기
+            <HiChevronRight size={22} />
           </div>
-        </Link>
-        <div
-          className="bg-white shadow-xl rounded-full py-2 pl-4 pr-2 text-gray-700 flex cursor-pointer"
-          onClick={() => setPage!(PageEnum.Export)}
-        >
-          내보내기
-          <HiChevronRight size={22} />
         </div>
       </div>
     </>
