@@ -2,7 +2,6 @@ import { ParsedCaption } from "models";
 import React, { ReactElement, useState } from "react";
 
 export enum PageEnum {
-  Home,
   Content,
   Export,
 }
@@ -22,12 +21,14 @@ export const MainContext = React.createContext<Partial<MainContextProps>>({});
 
 export const MainContextWrapper = ({
   children,
+  captionData,
 }: {
   children: ReactElement;
+  captionData: ParsedCaption[];
 }) => {
   const [url, setUrl] = useState<string>("");
-  const [page, setPage] = useState<PageEnum>(PageEnum.Home);
-  const [caption, setCaption] = useState<ParsedCaption[]>();
+  const [page, setPage] = useState<PageEnum>(PageEnum.Content);
+  const [caption, setCaption] = useState<ParsedCaption[]>(captionData);
   const [vocaList, setVocaList] = useState<string[]>([]);
 
   return (

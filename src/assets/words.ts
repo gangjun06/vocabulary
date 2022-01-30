@@ -1023,6 +1023,7 @@ export const words = {
     "did",
     "doesn't",
     "didn't",
+    "there's",
     "they're",
     "let's",
     "that",

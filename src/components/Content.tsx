@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { MainContext, PageEnum } from "./Context";
+import Link from "next/link";
 
 const Content = () => {
   const { url, setPage, caption, vocaList, setVocaList } =
@@ -51,12 +52,11 @@ const Content = () => {
         ))}
       </div>
       <div className="mt-6 flex w-2/5 justify-between">
-        <div
-          className="bg-white shadow-xl rounded-full py-2 px-4 text-gray-700 cursor-pointer"
-          onClick={() => setPage!(PageEnum.Home)}
-        >
-          <HiChevronLeft size={22} />
-        </div>
+        <Link href="/" passHref>
+          <div className="bg-white shadow-xl rounded-full py-2 px-4 text-gray-700 cursor-pointer">
+            <HiChevronLeft size={22} />
+          </div>
+        </Link>
         <div
           className="bg-white shadow-xl rounded-full py-2 pl-4 pr-2 text-gray-700 flex cursor-pointer"
           onClick={() => setPage!(PageEnum.Export)}

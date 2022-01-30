@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { HiChevronLeft, HiRewind } from "react-icons/hi";
 import { convertWord } from "utils/loadText";
@@ -13,6 +14,7 @@ const Export = () => {
   const [selected, setSelected] = useState<string>(categories[0]);
   const [text, setText] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const translateEnglish = async (str: string) => {
     try {
@@ -48,7 +50,6 @@ const Export = () => {
       }
       const translateList: string[] = [];
       for (let item of vocaList!) {
-        console.log(item);
         if (means[item]) {
           translateList.push(means[item]);
           continue;
@@ -59,7 +60,6 @@ const Export = () => {
           means[item] = res;
         }
       }
-      console.log(translateList);
       sessionStorage.setItem("list", JSON.stringify(means));
       if (selected === "csv(탭)") {
         const list = vocaList!.map(
@@ -129,9 +129,9 @@ const Export = () => {
         <div
           className="bg-white shadow-xl rounded-full py-2 pl-4 pr-4 text-gray-700 flex cursor-pointer"
           onClick={() => {
-            setPage!(PageEnum.Home);
             setVocaList!([]);
             setCaption!([]);
+            router.push("/");
           }}
         >
           다시하기
